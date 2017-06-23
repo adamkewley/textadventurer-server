@@ -140,7 +140,7 @@ public class App extends NanoWSD {
 
         start(-1, false);
 
-        log.info("Server booted on portt " + serverPort);
+        log.info("Server booted on port " + serverPort);
         log.info("GET " + GAMES_API_PATH + " to list games in JSON");
 
         System.in.read();
