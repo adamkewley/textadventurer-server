@@ -1,0 +1,15 @@
+game:
+
+  name: Echo
+
+  description: >-
+    
+    Test that subprocesses can be launched
+  
+  author:
+    name: Adam Kewley
+
+  boot:
+    application: echo
+    withArgs:
+      - "hello"
