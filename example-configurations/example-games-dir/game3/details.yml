@@ -1,0 +1,15 @@
+game:
+
+  name: My amazing game
+
+  description: >-
+    A super spooky game
+  
+  author:
+    name: Some author
+
+  boot:
+    application: python
+    withArgs:
+      - "-u"
+      - some-game.py

@@ -1,0 +1,17 @@
+game:
+
+  name: Explain Text Adventurer
+
+  description: >-
+    
+    A short explanation of text adventurer delivered through the
+    medium of text adventurer.
+  
+  author:
+    name: Adam Kewley
+
+  boot:
+    application: python
+    withArgs:
+      - "-u"
+      - game.py

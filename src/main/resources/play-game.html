@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * {
+      font-family: monospace;
+      font-size: large;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: greenyellow;
+    }
+
+    #game-output {
+      /* 4em for the input at bottom */
+      padding: 0 0 4em 0;
+    }
+
+  .line {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      animation: typing 4s steps(100, end);
+    }
+
+    .line[from="server"] {}
+
+    .line[from="player"] {
+      color: grey;
+    }
+
+    /* The typing effect */
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    #user-input, #user-input * {
+      margin: 0;
+      padding: 1em 0;
+      border: none;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #0a0a0a;
+      color: greenyellow;
+    }
+
+    #user-input:focus {
+      border: none;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+<div id="game-output"></div>
+<input type="text" id="user-input" autofocus placeholder="enter text here">
+<script>
+  function findGetParameter(parameterName) {
+    var result = null,
+      tmp = [];
+    location.search
+      .substr(1)
+      .split("&")
+      .forEach(function (item) {
+        tmp = item.split("=");
+        if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+      });
+    return result;
+  }
+
+  const gamePath = findGetParameter("game-url");
+  const gameUrl = "ws://" + window.location.host + gamePath;
+
+  const gameOutputEl = document.getElementById("game-output");
+  const userInputEl = document.getElementById("user-input");
+
+  function writeServerTextToScreen(text) {
+    text.split("\n").forEach(function(line)  {
+      const textEl = document.createElement("pre");
+      textEl.innerText = line;
+      textEl.classList.add("line");
+      textEl.setAttribute("from", "server");
+      gameOutputEl.appendChild(textEl);
+    });
+  }
+
+  function writeClientTextToScreen(text) {
+    text.split("\n").forEach(function(line)  {
+      const textEl = document.createElement("pre");
+      textEl.innerText = line;
+      textEl.classList.add("line");
+      textEl.setAttribute("from", "player");
+      gameOutputEl.appendChild(textEl);
+    });
+  }
+
+  function messageSenderListener(e) {
+    const keyPressed = e.key;
+
+    if (keyPressed === "Enter") {
+      writeClientTextToScreen(userInputEl.value);
+      gameSocket.send(userInputEl.value);
+      userInputEl.value = "";
+    }
+  }
+
+  userInputEl.addEventListener("keydown", messageSenderListener);
+
+  const gameSocket = new WebSocket(gameUrl);
+  gameSocket.onopen = function() {
+    // writeToScreen("CONNTECTED TO GAME");
+  };
+
+  gameSocket.onclose = function() {
+    writeServerTextToScreen("GAME ENDED");
+    userInputEl.disabled = true;
+    userInputEl.placeholder = "This game has ended, you cannot type anything.";
+    userInputEl.removeEventListener("keydown", messageSenderListener);
+  };
+
+  gameSocket.onmessage = function(event) {
+    writeServerTextToScreen(event.data);
+    document.body.scrollTop = document.body.scrollHeight;
+  };
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+Sat, 22 Apr 2017 17:03:17 +0100 | INFO   | server     |  | Serving using application   : /usr/bin/python -u some-game.py
+Sat, 22 Apr 2017 17:03:17 +0100 | INFO   | server     |  | Starting WebSocket server   : ws://adamk117-System-Product-Name:60002/
+Sat, 22 Apr 2017 19:40:47 +0100 | INFO   | server     |  | Serving using application   : /usr/bin/python -u some-game.py
+Sat, 22 Apr 2017 19:40:47 +0100 | INFO   | server     |  | Starting WebSocket server   : ws://adamk117-System-Product-Name:60002/
+Sat, 22 Apr 2017 21:24:55 +0100 | INFO   | server     |  | Serving using application   : /usr/bin/python -u some-game.py
+Sat, 22 Apr 2017 21:24:55 +0100 | INFO   | server     |  | Starting WebSocket server   : ws://adamk117-System-Product-Name:60002/
+Fri, 28 Apr 2017 20:36:45 +0100 | INFO   | server     |  | Serving using application   : /usr/bin/python -u some-game.py
+Fri, 28 Apr 2017 20:36:45 +0100 | INFO   | server     |  | Starting WebSocket server   : ws://adamk117-System-Product-Name:60002/
