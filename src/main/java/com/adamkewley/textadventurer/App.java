@@ -138,7 +138,7 @@ public class App extends NanoWSD {
         this.gamesDAO = new InMemoryGamesDAO(resolvedApplicationConfiguration.getGameConfigurations());
         this.gamesResource = new GamesResource(this.gamesDAO);
 
-        start(-1);
+        start(-1, false);
 
         log.info("Server booted on port " + serverPort);
         log.info("GET " + GAMES_API_PATH + " to list games in JSON");
