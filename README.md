@@ -57,36 +57,44 @@ behind a reverse proxy such as `nginx` or `Apache` under `/api` with
 full HTTPS/WSS encryption enabled. `textadventuer-ui` should then be
 deployed behind `/`.
 
-An example nginx configuration:
 
+Here is an nginx example, directly from the production textadventurer server:
 
 ```
-events {
-	worker_connections 768;
-}
-
 http {
-	server {
+     server {
+            server_name www.textadventurer.tk;
+            listen 80;
 
-	server_name www.textadventurer.tk;
+            return 301 https://$server_name$request_uri;
+     }
 
-	location / {
-		root /var/www/textadventurer
-	}
+     server {
+            server_name www.textadventurer.tk;
 
-	location /api {
-		proxy_pass http://localhost:8080;
-	}
+            listen 443 ssl;
+            add_header Strict-Transport-Security "max-age=31536000";
 
-	listen 80;
-	listen 443 ssl;
-	
-	ssl_certificate /etc/letsencrypt/live/www.textadventurer.tk/fullchain.pem;
-	ssl_certificate_key /etc/letsencrypt/live/www.textadventurer.tk/privkey.pem;
-	include /etc/letsencrypt/options-ssl-nginx.conf;
 
-	if ($scheme != "https") {
-		return 301 https://$host$request_uri;
-	}
+            location / {
+                     root /var/www/textadventurer;
+            }
+
+            location /api {
+                     proxy_pass http://localhost:8080;
+
+                     rewrite ^/api/(.*) /$1 break;
+
+                     # Websockets
+                     proxy_http_version 1.1;
+                     proxy_set_header Upgrade $http_upgrade;
+                     proxy_set_header Connection "upgrade";
+                     proxy_read_timeout 86400;
+            }
+
+            ssl_certificate /etc/letsencrypt/live/www.textadventurer.tk/fullchain.pem; # managed by Certbot
+            ssl_certificate_key /etc/letsencrypt/live/www.textadventurer.tk/privkey.pem; # managed by Certbot
+            include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    }
 }
 ```

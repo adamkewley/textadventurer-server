@@ -48,7 +48,7 @@ public class App extends NanoWSD {
             }
 
             serverPort = Integer.parseInt(args[0]);
-            final Path configurationFilePath = Paths.get(args[1]);
+            final Path configurationFilePath = Paths.get(args[1]).toAbsolutePath();
 
             log.info("Reading configuration file at: " + configurationFilePath);
 
