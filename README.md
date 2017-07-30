@@ -1,6 +1,6 @@
 # TextAdventurer Server
 
-[https://textadventurer.tk](https://textadventurer.tk)
+[https://www.textadventurer.tk](https://www.textadventurer.tk)
 
 Basic HTTP (/w Websocket) webserver for launching command-line
 applications.
@@ -9,7 +9,7 @@ applications.
 # Overview
 
 This is the server backend for
-[textadventurer](https://textadventurer.tk). The backend exposes games
+[textadventurer](https://www.textadventurer.tk). The backend exposes games
 that can be launched (via `GET /games`). A game object in the JSON
 response contains a URL to the game (via `play.url`). That is then
 built into a websocket URL (via `wss://server/url`). When connect to
@@ -32,6 +32,17 @@ boot the game. `textadventurer-server` uses this information to boot
 the game.
 
 
+# Building
+
+This is a standard java + maven project. Run:
+
+```
+mvn package
+```
+
+Which will produce a fat jar at `target/textadventuer-server-x.x.x.jar`.
+
+
 # Booting
 
 Once a `config.yml` file is made (one line) and a games directory is
@@ -44,7 +55,7 @@ java -jar textadventurer-server-x.x.x.jar 8080 example-config/config.yml
 This boots the webserver on port `8080`.
 
 
-# Production Config
+# Production Configuration
 
 The `textadventuer-server` HTTP API does not handle authentication
 credentials so, in principle, you *can* host it as-is without
