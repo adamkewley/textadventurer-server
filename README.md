@@ -1,9 +1,9 @@
 # TextAdventurer Server
 
-[https://www.textadventurer.tk](https://www.textadventurer.tk)
 
 Basic HTTP (/w Websocket) webserver for launching command-line
-applications.
+applications. Combines with
+[textadventurer-ui](https://github.com/AdamK117/textadventurer-ui).
 
 
 # Overview
