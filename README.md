@@ -9,7 +9,7 @@ applications. Combines with
 # Overview
 
 This is the server backend for
-[textadventurer](https://www.textadventurer.tk). The backend exposes games
+[textadventurer](https://adamkewley.com/textadventurer/index.html). The backend exposes games
 that can be launched (via `GET /games`). A game object in the JSON
 response contains a URL to the game (via `play.url`). That is then
 built into a websocket URL (via `wss://server/url`). When connect to
